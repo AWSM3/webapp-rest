@@ -8,10 +8,10 @@ import java.util.List;
 public class PersonWithCarsDto {
     private long id;
     private String name;
-    private LocalDate birthdate;
+    private String birthdate;
     private List<CarDto> cars;
 
-    public PersonWithCarsDto(long id, String name, LocalDate birthdate, List<CarDto> cars) {
+    public PersonWithCarsDto(long id, String name, String birthdate, List<CarDto> cars) {
         this.id = id;
         this.name = name;
         this.birthdate = birthdate;
@@ -26,7 +26,7 @@ public class PersonWithCarsDto {
         return name;
     }
 
-    public LocalDate getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 

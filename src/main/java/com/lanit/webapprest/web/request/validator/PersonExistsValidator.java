@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
 
-public class PersonExistsValidator implements ConstraintValidator<ValidPersonAge, Long> {
+public class PersonExistsValidator implements ConstraintValidator<PersonExists, Long> {
     private static final int MIN_AGE = 18;
 
     private final PersonRepositoryInterface personRepository;

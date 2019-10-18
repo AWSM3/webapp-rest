@@ -1,18 +1,20 @@
 package com.lanit.webapprest.web.request;
 
 import com.lanit.webapprest.web.request.validator.PersonNotExists;
+import com.lanit.webapprest.web.request.validator.ValidDate;
+import com.lanit.webapprest.web.request.validator.ValidDateValidator;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class PersonSaveRequest {
     @NotNull @PersonNotExists
     private long id;
     @NotNull
     private String name;
-    @NotNull @Past
-    private LocalDate birthdate;
+    @NotNull @ValidDate
+    private String birthdate;
 
     public long getId() {
         return id;
@@ -33,11 +35,12 @@ public class PersonSaveRequest {
     }
 
     public LocalDate getBirthdate() {
-        return birthdate;
+        return LocalDate.parse(birthdate, DateTimeFormatter.ofPattern(ValidDateValidator.DATE_FORMAT));
     }
 
-    public PersonSaveRequest setBirthdate(LocalDate birthdate) {
+    public PersonSaveRequest setBirthdate(@ValidDate String birthdate) {
         this.birthdate = birthdate;
+
         return this;
     }
 }

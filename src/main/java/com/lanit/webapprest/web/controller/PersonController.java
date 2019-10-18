@@ -10,8 +10,12 @@ import com.lanit.webapprest.web.request.validator.PersonExists;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,7 +29,11 @@ public class PersonController {
     @PostMapping("/person")
     public ResponseEntity save(@Valid @RequestBody PersonSaveRequest request) {
         personRepository.save(
-            new Person(request.getId(), request.getName(), request.getBirthdate())
+            new Person(
+                request.getId(),
+                request.getName(),
+                request.getBirthdate()
+            )
         );
 
         return ResponseEntity.ok().build();
@@ -33,14 +41,25 @@ public class PersonController {
 
     @GetMapping("/personwithcars")
     @ResponseBody
-    public ResponseEntity personWithCars(@PersonExists long personId) {
-        Person person = personRepository.getOne(personId);
+    public ResponseEntity personWithCars(@RequestParam Long personId) {
+        Person person;
+        Optional<Person> personOrNot = personRepository.findById(personId);
+        if (!personOrNot.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        person = personOrNot.get();
+
         List<CarDto> carDtoList = person.getCars().stream()
                 .map(car -> new CarDto(car.getId(), car.getVendor(), car.getModel(), car.getHorsepower()))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(
-            new PersonWithCarsDto(person.getId(), person.getName(), person.getBirthdate(), carDtoList)
+            new PersonWithCarsDto(
+                    person.getId(),
+                    person.getName(),
+                    person.getBirthdate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+                    carDtoList
+            )
         );
     }
 }
