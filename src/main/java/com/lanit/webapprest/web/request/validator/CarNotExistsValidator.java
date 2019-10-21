@@ -1,12 +1,12 @@
 package com.lanit.webapprest.web.request.validator;
 
 import com.lanit.webapprest.repository.CarRepositoryInterface;
-import com.lanit.webapprest.repository.PersonRepositoryInterface;
+import com.lanit.webapprest.web.request.vo.Id;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class CarNotExistsValidator implements ConstraintValidator<CarNotExists, Long> {
+public class CarNotExistsValidator implements ConstraintValidator<CarNotExists, Id> {
     private final CarRepositoryInterface carRepository;
 
     public CarNotExistsValidator(CarRepositoryInterface carRepository) {
@@ -14,7 +14,9 @@ public class CarNotExistsValidator implements ConstraintValidator<CarNotExists, 
     }
 
     @Override
-    public boolean isValid(Long carId, ConstraintValidatorContext constraintValidatorContext) {
-        return !carRepository.findById(carId).isPresent();
+    public boolean isValid(Id carId, ConstraintValidatorContext constraintValidatorContext) {
+        if (carId == null || carId.getValue() == null) return false;
+
+        return !carRepository.findById(carId.getValue()).isPresent();
     }
 }

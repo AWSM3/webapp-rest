@@ -1,27 +1,30 @@
 package com.lanit.webapprest.web.request;
 
+import com.lanit.webapprest.web.request.validator.CarModel;
 import com.lanit.webapprest.web.request.validator.CarNotExists;
 import com.lanit.webapprest.web.request.validator.PersonExists;
 import com.lanit.webapprest.web.request.validator.ValidPersonAge;
+import com.lanit.webapprest.web.request.vo.Id;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class CarSaveRequest {
     @NotNull @CarNotExists
-    private long id;
-    @NotNull
+    private Id id;
+    @NotNull @NotBlank @CarModel
     private String model;
     @NotNull @Min(1)
     private int horsepower;
     @NotNull @PersonExists @ValidPersonAge
-    private long ownerId;
+    private Id ownerId;
 
-    public long getId() {
+    public Id getId() {
         return id;
     }
 
-    public CarSaveRequest setId(long id) {
+    public CarSaveRequest setId(Id id) {
         this.id = id;
         return this;
     }
@@ -46,11 +49,11 @@ public class CarSaveRequest {
         return this;
     }
 
-    public long getOwnerId() {
+    public Id getOwnerId() {
         return ownerId;
     }
 
-    public CarSaveRequest setOwnerId(long ownerId) {
+    public CarSaveRequest setOwnerId(Id ownerId) {
         this.ownerId = ownerId;
         return this;
     }

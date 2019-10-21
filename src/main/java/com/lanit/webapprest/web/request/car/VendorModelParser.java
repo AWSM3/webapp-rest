@@ -2,8 +2,6 @@ package com.lanit.webapprest.web.request.car;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Scanner;
-
 @Service
 public class VendorModelParser {
     private String carName;
@@ -11,10 +9,12 @@ public class VendorModelParser {
     private String model;
 
     public VendorModelParser parse(String carName) {
-        this.carName = carName;
+        this.model = carName;
         int delimiterPosition = carName.indexOf('-');
+        if (delimiterPosition == 0) {
+            throw new IllegalArgumentException();
+        }
         this.vendor = carName.substring(0, delimiterPosition);
-        this.model = carName.substring(delimiterPosition + 1, carName.length());
 
         return this;
     }

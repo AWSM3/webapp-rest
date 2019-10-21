@@ -3,8 +3,8 @@ package com.lanit.webapprest.web.controller;
 import com.lanit.webapprest.entity.Car;
 import com.lanit.webapprest.repository.CarRepositoryInterface;
 import com.lanit.webapprest.repository.PersonRepositoryInterface;
-import com.lanit.webapprest.web.request.car.VendorModelParser;
 import com.lanit.webapprest.web.request.CarSaveRequest;
+import com.lanit.webapprest.web.request.car.VendorModelParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,11 +30,11 @@ public class CarController {
         String model = vendorModelParser.getModel();
         String vendor = vendorModelParser.getVendor();
         Car car = new Car(
-                request.getId(),
+                request.getId().getValue(),
                 vendor,
                 model,
                 request.getHorsepower(),
-                personRepository.getOne(request.getOwnerId())
+                personRepository.getOne(request.getOwnerId().getValue())
         );
 
         carRepository.saveAndFlush(car);

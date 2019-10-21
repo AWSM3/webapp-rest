@@ -1,5 +1,7 @@
 package com.lanit.webapprest.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Statistics {
     private long personCount;
     private long carCount;
@@ -11,14 +13,17 @@ public class Statistics {
         this.uniqueVendorCount = uniqueVendorCount;
     }
 
+    @JsonProperty("personcount")
     public long getPersonCount() {
         return personCount;
     }
 
+    @JsonProperty("carcount")
     public long getCarCount() {
         return carCount;
     }
 
+    @JsonProperty("uniquevendorcount")
     public long getUniqueVendorCount() {
         return uniqueVendorCount;
     }

@@ -1,8 +1,5 @@
 package com.lanit.webapprest.dto;
 
-import com.lanit.webapprest.entity.Car;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public class PersonWithCarsDto {

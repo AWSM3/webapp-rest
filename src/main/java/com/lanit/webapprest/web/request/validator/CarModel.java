@@ -3,19 +3,18 @@ package com.lanit.webapprest.web.request.validator;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({FIELD, ElementType.PARAMETER})
+@Target({FIELD})
 @Retention(RUNTIME)
-@Constraint(validatedBy = ValidDateValidator.class)
+@Constraint(validatedBy = CarModelValidator.class)
 @Documented
-public @interface ValidDate {
-    String message() default "Invalid date format";
+public @interface CarModel {
+    String message() default "Invalid car model name";
 
     Class<?>[] groups() default {};
 

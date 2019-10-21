@@ -2,17 +2,13 @@ package com.lanit.webapprest.web.controller;
 
 import com.lanit.webapprest.dto.CarDto;
 import com.lanit.webapprest.dto.PersonWithCarsDto;
-import com.lanit.webapprest.entity.Car;
 import com.lanit.webapprest.entity.Person;
 import com.lanit.webapprest.repository.PersonRepositoryInterface;
 import com.lanit.webapprest.web.request.PersonSaveRequest;
-import com.lanit.webapprest.web.request.validator.PersonExists;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +26,7 @@ public class PersonController {
     public ResponseEntity save(@Valid @RequestBody PersonSaveRequest request) {
         personRepository.save(
             new Person(
-                request.getId(),
+                request.getId().getValue(),
                 request.getName(),
                 request.getBirthdate()
             )
@@ -41,9 +37,9 @@ public class PersonController {
 
     @GetMapping("/personwithcars")
     @ResponseBody
-    public ResponseEntity personWithCars(@RequestParam Long personId) {
+    public ResponseEntity personWithCars(@RequestParam Long personid) {
         Person person;
-        Optional<Person> personOrNot = personRepository.findById(personId);
+        Optional<Person> personOrNot = personRepository.findById(personid);
         if (!personOrNot.isPresent()) {
             return ResponseEntity.notFound().build();
         }
