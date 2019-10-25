@@ -11,7 +11,7 @@ public class VendorModelParser {
     public VendorModelParser parse(String carName) {
         this.model = carName;
         int delimiterPosition = carName.indexOf('-');
-        if (delimiterPosition == 0) {
+        if (delimiterPosition <= 0) {
             throw new IllegalArgumentException();
         }
         this.vendor = carName.substring(0, delimiterPosition);

@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = ValidDateValidator.class)
 @Documented
 public @interface ValidDate {
-    String message() default "Invalid date format";
+    String message() default "Invalid date";
 
     Class<?>[] groups() default {};
 

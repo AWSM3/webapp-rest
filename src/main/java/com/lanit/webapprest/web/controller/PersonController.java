@@ -8,6 +8,7 @@ import com.lanit.webapprest.web.request.PersonSaveRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -37,6 +38,7 @@ public class PersonController {
 
     @GetMapping("/personwithcars")
     @ResponseBody
+    @Transactional
     public ResponseEntity personWithCars(@RequestParam Long personid) {
         Person person;
         Optional<Person> personOrNot = personRepository.findById(personid);

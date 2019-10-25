@@ -1,5 +1,7 @@
 package com.lanit.webapprest.web.request.vo;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public class Id {
     private Long value;
 
@@ -11,6 +13,11 @@ public class Id {
 
     public Id(String value) {
         setValue(value);
+    }
+
+    @JsonValue
+    public String toJson() {
+        return value.toString();
     }
 
     public Long getValue() {

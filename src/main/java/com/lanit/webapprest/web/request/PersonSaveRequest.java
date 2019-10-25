@@ -1,5 +1,6 @@
 package com.lanit.webapprest.web.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lanit.webapprest.web.request.validator.PersonNotExists;
 import com.lanit.webapprest.web.request.validator.ValidDate;
 import com.lanit.webapprest.web.request.validator.ValidDateValidator;
@@ -15,6 +16,7 @@ public class PersonSaveRequest {
     @NotNull
     private String name;
     @NotNull @ValidDate
+    @JsonFormat(pattern = ValidDateValidator.DATE_FORMAT)
     private String birthdate;
 
     public Id getId() {
